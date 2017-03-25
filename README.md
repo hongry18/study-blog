@@ -35,6 +35,9 @@ nodeJS Site에서 nodejs 최신 소스 다운로드 후 설치
 
 ## install package
 
+### global packages
+npm install -g babel-cli nodemon cross-env webpack webpack-dev-server
+
 ### express
 npm install --save express<br>
 ```javascript
