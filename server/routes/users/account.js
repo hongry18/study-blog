@@ -1,5 +1,6 @@
 import express from 'express';
 import Account from '~/models/users/account';
+import { hasParams } from '~/libs/util';
 
 const router = express.Router();
  
@@ -32,7 +33,7 @@ router.post('/signup', (req, res) => {
             username: req.body.username,
             password: req.body.password,
             email: req.body.email,
-            nickname: req.body.nickname
+            nickname: req.body.nickname,
         });
 
         account.password = account.generateHash(account.password);
@@ -70,12 +71,12 @@ router.post('/signin', (req, res) => {
             return res.status(401).json(result);
         }
 
-        var session = req.session;
+        let session = req.session;
         session.loginInfo = {
             _id: account._id,
             id: account.accountId,
             username: account.username,
-            nickname: account.password
+            nickname: account.nickname
         };
 
         result['success'] = true;
@@ -93,18 +94,55 @@ router.post('/logout', (req, res) => {
 
 router.put('/', (req, res) => {
     var result = {};
-    res.json(result);
+
+    if ( !hasParams(req.session, 'loginInfo') ) {
+        result['error'] = 'needed login';
+        result['code'] = 1;
+        return res.status(401).json(result);
+    }
+
+    Account.update({accountId: req.body.id}, { $set: req.body }, function(err, output) {
+        if (err) throw err;
+
+        if (!output.n) {
+            result['error'] = 'not fund user';
+            result['code'] = 1;
+            return res.status(404).json(result);
+        }
+
+        result['success'] = true;
+        return res.json(result);
+    });
 });
  
 router.delete('/', (req, res) => {
     var result = {};
-    res.json(result);
+
+    if ( !hasParams(req.session, 'loginInfo') ) {
+        result['error'] = 'needed login';
+        result['code'] = 1;
+        return res.status(401).json(result);
+    }
+
+    Account.remove({}, function(err, output) {
+        if (err) throw err;
+
+        if (!output.result.n) {
+            result['error'] = 'not fund user';
+            result['code'] = 1;
+            return res.status(404).json(result);
+        }
+
+        result['success'] = true;
+        return res.json(result);
+    });
+
 });
 
 router.get('/', (req, res) => {
     var result = {};
 
-    if ( !req.session.hasOwnProperty('loginInfo') || typeof req.session.loginInfo === "undefined" ) {
+    if ( !hasParams(req.session, 'loginInfo') ) {
         result['error'] = 'needed login';
         result['code'] = 1;
         return res.status(401).json(result);

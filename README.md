@@ -135,6 +135,29 @@ db.system.js.save({
 });
 ```
 
+### react dependency
+npm install --save axios react-addons-update react-router@3.0.2 react-timeago redux react-redux@4.4.5 redux-thunk<br>
+
+### css, style loader
+npm install --save-dev style-loader css-loader
+
+```javascript
+module: {
+    loaders: [
+        {
+           /* ... */
+        },
+        {
+            test: /\.css$/,
+            loader: 'style!css-loader'
+        }
+    ]
+},
+```
+
+
+## api
+
 ### signup
 ```shell
 curl -X POST \

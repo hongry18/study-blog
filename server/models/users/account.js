@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import autoIncrement from 'mongoose-auto-increment';
-import config from 'config';
 import bcrypt from 'bcryptjs';
 
 const Schema = mongoose.Schema;
@@ -10,12 +9,12 @@ const Account = new Schema({
     password: String,
     email: String,
     nickname: String,
+    accountId: Number,
     date: {
         created: { type: Date, default: Date.now },
         modified: { type: Date, default: Date.now }
     }
 });
-
 
 // generates hash
 Account.methods.generateHash = function(password) {
