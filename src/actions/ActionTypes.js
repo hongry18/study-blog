@@ -18,3 +18,8 @@ export const AUTH_LOGOUT = "AUTH_LOGOUT";
 export const POST = "POST";
 export const POST_SUCCESS = "POST_SUCCESS";
 export const POST_FAILURE = "POST_FAILURE";
+
+/* Post List */
+export const POST_LIST = "POST_LIST";
+export const POST_LIST_SUCCESS = "POST_LIST_SUCCESS";
+export const POST_LIST_FAILURE = "POST_LIST_FAILURE";
