@@ -15,6 +15,9 @@ touch config/{default.json,production.json}
         "secret": "foo",
         "maxAge": 3600,
         "millisecond": 1000
+    },
+    "db": {
+        "mongo": "mongodb://localhost/blog"
     }
 }
 ```
