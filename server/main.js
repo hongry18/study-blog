@@ -7,6 +7,7 @@ import bodyParser from 'body-parser'; // PARSE HTML BODY
 
 import mongoose from 'mongoose';
 import session from 'express-session';
+const MongoStore = require('connect-mongo')(session);
 
 import api from '~/routes';
 
@@ -28,7 +29,11 @@ app.use(session({
     saveUninitialized: true,
     cookie: {
         maxAge: config.get('session.maxAge') * config.get('session.millisecond')
-    }
+    },
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: config.get('session.maxAge')
+    })
 }));
 
 app.use( '/', express.static( path.join(config.get('env.path'), '/public')) );

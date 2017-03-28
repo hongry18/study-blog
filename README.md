@@ -1,5 +1,4 @@
 # Study
-# Study
 
 ## 애플리케이션 구조
 
@@ -34,9 +33,6 @@ nodeJS Site에서 nodejs 최신 소스 다운로드 후 설치
 \# rpm -ivh https://repo.mongodb.org/yum/redhat/7/mongodb-org/3.4/x86_64/RPMS/mongodb-org-3.4.2-1.el7.x86_64.rpm<br>
 
 ## install package
-
-### global packages
-npm install -g babel-cli nodemon cross-env webpack webpack-dev-server
 
 ### express
 npm install --save express<br>
@@ -117,6 +113,7 @@ npm install babel-plugin-root-import --save-dev<br>
 }
 ```
 
+### get sequenceId - auto increment
 ```javascript
 // create auto increment function
 db.system.js.save({
@@ -135,28 +132,23 @@ db.system.js.save({
 });
 ```
 
-### react dependency
-npm install --save axios react-addons-update react-router@3.0.2 react-timeago redux react-redux@4.4.5 redux-thunk<br>
-
-### css, style loader
-npm install --save-dev style-loader css-loader
-
+### express session store use mongodb
+npm install connect-mongo
 ```javascript
-module: {
-    loaders: [
-        {
-           /* ... */
-        },
-        {
-            test: /\.css$/,
-            loader: 'style!css-loader'
-        }
-    ]
-},
+/* use session */
+app.use(session({
+    secret: config.get('session.secret'),
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: config.get('session.maxAge') * config.get('session.millisecond')
+    },
+    store: new MongoStore({
+        mongooseConnection: mongoose.connection,
+        ttl: config.get('session.maxAge')
+    })
+}));
 ```
-
-
-## api
 
 ### signup
 ```shell

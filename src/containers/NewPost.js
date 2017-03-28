@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Header, Write, NeededLogin } from 'components';
 import { postRequest } from 'actions/post';
+import { browserHistory } from 'react-router';
 
 class NewPost extends React.Component {
 
@@ -15,6 +16,7 @@ class NewPost extends React.Component {
             .then( () => {
                 if (this.props.postStatus === 'SUCCESS') {
                     Materialize.toast('Success!', 2000);
+                    browserHistory.push('/');
                 } else {
                     let $toastContent = $('<span style="color: #FFB4BA">' + this.props.errorMessage + '</span>');
                     Materialize.toast($toastContent, 2000);
@@ -39,8 +41,8 @@ class NewPost extends React.Component {
 const mapState2Props = (state) => {
     return {
         isLoggedIn: state.authentication.status.isLoggedIn,
-        postStatus: state.post.post,
-        errorMessage: state.post.error
+        postStatus: state.post.post.status,
+        errorMessage: state.post.post.error
     };
 };
 
