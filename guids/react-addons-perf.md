@@ -18,5 +18,8 @@ Perf.start();
 ReactDOM.render(<App />, document.getElementById('app'));
 
 Perf.stop();
-Perf.printInclusive(Perf.getLastMeasurements());
+const measurements = Perf.getLastMeasurements()
+Perf.printInclusive(measurements)
+Perf.printExclusive(measurements)
+Perf.printWasted(measurements)
 ```
