@@ -1,7 +1,7 @@
 # webpack image loader
 
 ## install
-> npm install image-webpack-loader --save-dev
+> npm install image-webpack-loader file-loader --save-dev
 
 ## dependency
 * libpng

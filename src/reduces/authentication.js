@@ -12,7 +12,8 @@ const initialState = {
     status: {
         valid: false,
         isLoggedIn: false,
-        currentUser: ''
+        currentUser: '',
+        role: ''
     }
 };
 
@@ -74,7 +75,8 @@ export default function authentication(state, action) {
             return update(state, {
                 status: {
                     valid: { $set: true },
-                    currentUser: { $set: action.userInfo.nickname }
+                    currentUser: { $set: action.userInfo.nickname },
+                    role: { $set: action.userInfo.role }
                 }
             });
         case types.AUTH_GET_STATUS_FAILURE:

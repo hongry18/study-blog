@@ -10,6 +10,7 @@ const Account = new Schema({
     email: String,
     nickname: String,
     accountId: Number,
+    role: String,
     date: {
         created: { type: Date, default: Date.now },
         modified: { type: Date, default: Date.now }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Perf from 'react-addons-perf';
 
 // Router
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
@@ -17,6 +18,8 @@ const store = createStore( reduces, applyMiddleware(thunk) );
 
 const el = document.getElementById('root');
 
+Perf.start();
+
 ReactDOM.render(
     <Provider store={store} >
         <Router history={browserHistory} >
@@ -29,3 +32,9 @@ ReactDOM.render(
         </Router>
     </Provider>, el
 );
+
+Perf.stop();
+const measurements = Perf.getLastMeasurements();
+Perf.printInclusive(measurements);
+Perf.printExclusive(measurements);
+Perf.printWasted(measurements);

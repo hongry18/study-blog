@@ -76,7 +76,8 @@ router.post('/signin', (req, res) => {
             _id: account._id,
             id: account.accountId,
             username: account.username,
-            nickname: account.nickname
+            nickname: account.nickname,
+            role: account.role
         };
 
         result['success'] = true;
