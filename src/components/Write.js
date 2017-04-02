@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class Write extends React.Component {
 
@@ -7,7 +8,8 @@ class Write extends React.Component {
 
         this.state = {
             title: '',
-            content: ''
+            content: '',
+            isMounted: true
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -25,11 +27,9 @@ class Write extends React.Component {
         let content = this.state.content;
 
         this.props.onPost(title, content)
-            .then(() => {
-                this.setState({
-                    title: '',
-                    content: ''
-                });
+            .then( (e) => {
+                console.log(this.props.postStatus);
+                console.log(this.props.errorMessage);
             });
     }
 
@@ -75,4 +75,11 @@ Write.defaultProps = {
     onPost: (contents) => { console.error('post function not defined'); }
 };
 
-export default Write;
+const mapState2Props = (state) => {
+    return {
+        postStatus: state.post.post.status,
+        errorMessage: state.post.post.error
+    };
+};
+
+export default connect(mapState2Props, null)(Write);

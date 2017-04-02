@@ -10,10 +10,7 @@ class Home extends React.Component {
     }
 
     componentDidMount() {
-        this.props.postListRequest(true)
-            .then(() => {
-                console.log(this.props.postData);
-            });
+        this.props.postListRequest(true);
     }
 
     render() {

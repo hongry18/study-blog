@@ -12,6 +12,9 @@ class NewPost extends React.Component {
     }
 
     handlePost(title, content) {
+
+        if ( !this.state.isMounted ) return;
+
         return this.props.postRequest(title, content)
             .then( () => {
                 if (this.props.postStatus === 'SUCCESS') {
@@ -22,6 +25,14 @@ class NewPost extends React.Component {
                     Materialize.toast($toastContent, 2000);
                 }
             });
+    }
+
+    componentDidMount() { 
+        this.setState({isMounted:  true});
+    }
+
+    componentWillUnmount() {
+        this.setState({isMounted:  false});
     }
 
     render() {
