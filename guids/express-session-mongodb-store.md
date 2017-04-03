@@ -1,7 +1,7 @@
 # express js + session + mongodb Store
 
 ## install dependency
-> npm install --save express-session connect-mongodb config
+> npm install --save express-session connect-mongo config
 
 ## usage config
 ### Create json files
